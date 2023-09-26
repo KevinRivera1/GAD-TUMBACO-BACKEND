@@ -1,10 +1,21 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { DataSourceconfig } from "./config/data.source";
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: `.${process.env.NODE_ENV}.env`,
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRoot({
+      ...DataSourceconfig,
+      autoLoadEntities: true,
+    }),
+    /* DEBAJO DE ESTE COMENTARIO INSTACIAR LOS MODULOS */
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
