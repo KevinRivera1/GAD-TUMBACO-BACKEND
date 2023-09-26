@@ -24,7 +24,7 @@ async function bootstrap() {
   );
 
   // Configuración de Swagger
-  /* http://localhost:4000/api-docs */
+  /* http://localhost:3000/api-docs */
   const config = new DocumentBuilder()
     .setTitle("GAD-TUMBACO")
     .setDescription("Controladores de la aplicación GAD-TUMBACO")
