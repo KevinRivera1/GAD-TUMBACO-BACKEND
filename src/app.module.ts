@@ -13,7 +13,7 @@ import { DataSourceconfig } from "./config/data.source";
       ...DataSourceconfig,
       autoLoadEntities: true,
     }),
-    /* DEBAJO DE ESTE COMENTARIO INSTACIAR LOS MODULOS */
+    /* DEBAJO DE ESTE COMENTARIO INSTANCIAR SUS MODULOS */
   ],
   controllers: [],
   providers: [],
