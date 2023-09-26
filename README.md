@@ -32,11 +32,16 @@
 $ npm install
 ```
 
+## GENERAR RECURSOS DE NESTJS
+
+```bash
+# Generar un recurso CRUD
+$ nest g res Bienes --no-spec
+```
+
 ## Running the app
 
 ```bash
-# development
-$ npm run start
 
 # watch mode
 $ npm run start:dev
