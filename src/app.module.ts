@@ -1,6 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { BienesCategoriasModule } from "./bienes-categorias/bienes-categorias.module";
+import { BienesSolicitudModule } from "./bienes-solicitud/bienes-solicitud.module";
+import { BienesModule } from "./bienes/bienes.module";
 import { DataSourceconfig } from "./config/data.source";
 
 @Module({
@@ -13,7 +16,9 @@ import { DataSourceconfig } from "./config/data.source";
       ...DataSourceconfig,
       autoLoadEntities: true,
     }),
-    /* DEBAJO DE ESTE COMENTARIO INSTANCIAR SUS MODULOS */
+    BienesModule,
+    BienesCategoriasModule,
+    BienesSolicitudModule,
   ],
   controllers: [],
   providers: [],
