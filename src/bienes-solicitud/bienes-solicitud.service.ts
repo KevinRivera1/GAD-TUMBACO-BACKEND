@@ -20,11 +20,15 @@ export class BienesSolicitudService {
   }
 
   async findAll() {
-     return await this.bienesSolicitudRepository.find(); 
+     return await this.bienesSolicitudRepository.find({relations: ['bienes']}); 
   }
 
   async findOne(id: number) {
-    const bienesSolicitud = await this.bienesSolicitudRepository.findOneBy({ id_solicitud_bienes:id });
+    const bienesSolicitud = await this.bienesSolicitudRepository.findOne({
+      where: { id_solicitud_bienes: id },
+      relations: ['bienes'],
+    });
+    
     if (!bienesSolicitud) throw new NotFoundException("No se pudo encontrar el Registro de Bienes con el ID proporcionado");
     return bienesSolicitud;
   }
