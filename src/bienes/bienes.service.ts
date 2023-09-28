@@ -14,9 +14,9 @@ export class BienesService {
   ) { }
 
 
-  async findAll() {
+  async findAll(): Promise<Bienes[]> {
     //return await this.bienesRepository.find({where : {disponibilidad:false}});
-    return await this.bienesRepository.find();
+    return await this.bienesRepository.find({relations: ['categorias', 'bienesSolicitud']});
   }
 
 
@@ -27,7 +27,10 @@ export class BienesService {
 
 
   async findOne(id: number): Promise<Bienes> {
-    const bienes = await this.bienesRepository.findOneBy({ id_bienes: id });
+    const bienes = await this.bienesRepository.findOne({
+      where: { id_bienes: id },
+      relations: ['categorias', 'bienesSolicitud'],
+    });
     if (!bienes) throw new NotFoundException("No se pudo encontrar el Registro de Bienes con el ID proporcionado");
     return bienes;
   }
