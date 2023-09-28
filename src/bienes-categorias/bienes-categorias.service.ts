@@ -14,7 +14,7 @@ export class BienesCategoriasService {
     private readonly categoriasRepository: Repository<BienesCategoria>,
   ) { }
 
-  async findAll() {
+  async findAll(): Promise<BienesCategoria[]> {
     //return await this.bienesRepository.find({where : {disponibilidad:false}});
     return await this.categoriasRepository.find();
   }
