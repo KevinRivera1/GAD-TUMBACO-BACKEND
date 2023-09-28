@@ -31,7 +31,7 @@ export class BienesService {
       where: { id_bienes: id },
       relations: ['categorias', 'bienesSolicitud'],
     });
-    if (!bienes) throw new NotFoundException("No se pudo encontrar el Registro de Bienes con el ID proporcionado");
+    if (!bienes) throw new NotFoundException(`No se pudo encontrar el Registro de Bienes con el ID: ${id} proporcionado`);
     return bienes;
   }
 
