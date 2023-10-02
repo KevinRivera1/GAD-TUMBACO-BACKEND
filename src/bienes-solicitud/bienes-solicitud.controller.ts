@@ -33,7 +33,7 @@ export class BienesSolicitudController {
 
   @ApiOperation({ summary: 'Actualizar un registro de bienes-solicitud' })
   @ApiResponse({ status: 200, description: 'Registro actualizado correctamente.'})
-  @Put(':id')
+  @Put('update/:id')
   updateSolicitud(@Param('id') id: string, @Body() updateBienesSolicitudDto: UpdateBienesSolicitudDto) {
     return this.bienesSolicitudService.update(+id, updateBienesSolicitudDto);
   }
