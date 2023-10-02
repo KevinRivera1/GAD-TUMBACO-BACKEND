@@ -5,6 +5,10 @@ import { BienesCategoriasModule } from "./bienes-categorias/bienes-categorias.mo
 import { BienesSolicitudModule } from "./bienes-solicitud/bienes-solicitud.module";
 import { BienesModule } from "./bienes/bienes.module";
 import { DataSourceconfig } from "./config/data.source";
+import { UsuariosModule } from "./usuarios/usuarios.module";
+import { DepartamentoModule } from './departamento/departamento.module';
+import { RolesModule } from './roles/roles.module';
+import { EstadosModule } from './estados/estados.module';
 
 @Module({
   imports: [
@@ -19,6 +23,10 @@ import { DataSourceconfig } from "./config/data.source";
     BienesModule,
     BienesCategoriasModule,
     BienesSolicitudModule,
+    UsuariosModule,
+    DepartamentoModule,
+    RolesModule,
+    EstadosModule,
   ],
   controllers: [],
   providers: [],
