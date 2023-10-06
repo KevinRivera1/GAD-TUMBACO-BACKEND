@@ -10,6 +10,7 @@ import { DepartamentoModule } from './departamento/departamento.module';
 import { RolesModule } from './roles/roles.module';
 import { EstadosModule } from './estados/estados.module';
 import { ProyectoModule } from './proyecto/proyecto.module';
+import { PresidenciaModule } from './presidencia/presidencia.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ProyectoModule } from './proyecto/proyecto.module';
     RolesModule,
     EstadosModule,
     ProyectoModule,
+    PresidenciaModule,
   ],
   controllers: [],
   providers: [],
