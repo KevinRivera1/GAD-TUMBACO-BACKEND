@@ -1,5 +1,5 @@
-import { BienesCategoria } from "src/bienes-categorias/entities/bienes-categoria.entity";
-import { BienesSolicitud } from "src/bienes-solicitud/entities/bienes-solicitud.entity";
+import { BienesCategoria } from 'src/bienes-categorias/entities/bienes-categoria.entity';
+import { BienesSolicitud } from 'src/bienes-solicitud/entities/bienes-solicitud.entity';
 import {
   Column,
   CreateDateColumn,
