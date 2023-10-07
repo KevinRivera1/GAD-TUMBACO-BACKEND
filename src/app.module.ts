@@ -9,6 +9,8 @@ import { UsuariosModule } from "./usuarios/usuarios.module";
 import { DepartamentoModule } from './departamento/departamento.module';
 import { RolesModule } from './roles/roles.module';
 import { EstadosModule } from './estados/estados.module';
+import { ProyectoModule } from './proyecto/proyecto.module';
+import { PresidenciaModule } from './presidencia/presidencia.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { EstadosModule } from './estados/estados.module';
     DepartamentoModule,
     RolesModule,
     EstadosModule,
+    ProyectoModule,
+    PresidenciaModule,
   ],
   controllers: [],
   providers: [],

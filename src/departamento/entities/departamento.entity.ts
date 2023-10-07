@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Presidencia } from "src/presidencia/entities/presidencia.entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('departamentos')
 export class Departamento {
@@ -54,4 +55,11 @@ export class Departamento {
     @JoinColumn({ name: 'id_departamentos' }) 
     oficios: OficiosEntity[];
  */
+
+    
+
+    @OneToOne(() => Presidencia, (presidencia) => presidencia.departamentos) // specify inverse side as a second parameter
+    @JoinColumn()
+    presidencia: Presidencia 
+
 }
