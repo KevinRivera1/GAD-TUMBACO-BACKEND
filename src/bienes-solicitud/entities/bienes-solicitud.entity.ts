@@ -88,7 +88,7 @@ export class BienesSolicitud {
   // Relación muchos a uno con la tabla bienes
   @ManyToOne(() => Bienes, (bienes) => bienes.bienesSolicitud)
   @JoinColumn({ name: "id_bienes" })
-  bienes: Bienes[];
+  bienes: Bienes;
 
   @CreateDateColumn({
     name: "created_at",
