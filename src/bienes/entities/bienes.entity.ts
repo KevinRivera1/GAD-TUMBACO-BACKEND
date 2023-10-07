@@ -75,7 +75,7 @@ export class Bienes {
   disponibilidad: boolean;
 
   // Relación muchos a uno con la tabla categorias
-  @ManyToOne(() => BienesCategoria, (categorias) => categorias.bienes, {
+  @ManyToOne(() => BienesCategoria, (categorias) => categorias.id_categorias, {
     cascade: true,
     eager: true,
   })
