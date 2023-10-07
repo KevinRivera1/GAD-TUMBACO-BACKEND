@@ -49,6 +49,19 @@ export class BienesService {
 
   async update(id: number, updateBienDto: UpdateBienDto) {
     /* return await this.bienesRepository.update(id, updateBienDto); */
+    const categoria = await this.categoriasRepository.findOneBy({nombre_categoria: updateBienDto.categorias});
+
+    if (!categoria) throw new NotFoundException(`No se pudo encontrar la categoria con el nombre: ${updateBienDto.categorias} proporcionado`);
+
+    const bienes = await this.bienesRepository.preload({
+      id_bienes: id,
+      ...updateBienDto,
+      categorias: categoria,
+    });
+
+    if (!bienes) throw new NotFoundException(`No se pudo encontrar el Registro de Bienes con el ID: ${id} proporcionado`);
+
+    return await this.bienesRepository.save(bienes);
   }
 
   //* eliminacion fisica
