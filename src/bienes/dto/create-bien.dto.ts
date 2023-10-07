@@ -31,4 +31,8 @@ export class CreateBienDto {
   @IsBoolean()
   @ApiProperty()
   disponibilidad: boolean;
+
+  @IsString()
+  @ApiProperty()
+  categorias:string;
 }
