@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BienesCategoria } from 'src/bienes-categorias/entities/bienes-categoria.entity';
 import { Repository } from 'typeorm';
 import { CreateBienDto } from './dto/create-bien.dto';
 import { UpdateBienDto } from './dto/update-bien.dto';
@@ -11,6 +12,9 @@ export class BienesService {
   constructor(
     @InjectRepository(Bienes)
     private readonly bienesRepository: Repository<Bienes>,
+
+    @InjectRepository(BienesCategoria)
+    private readonly categoriasRepository: Repository<BienesCategoria>,
   ) { }
 
 
@@ -22,7 +26,14 @@ export class BienesService {
 
 
   async create(createBienDto: CreateBienDto) {
-    const bienes = this.bienesRepository.create(createBienDto);
+    const categoria = await this.categoriasRepository.findOneBy({nombre_categoria: createBienDto.categorias});
+
+    if (!categoria) throw new NotFoundException(`No se pudo encontrar la categoria con el nombre: ${createBienDto.categorias} proporcionado`);
+
+    const bienes = this.bienesRepository.create({
+      ...createBienDto,
+      categorias: categoria,
+    });
     return await this.bienesRepository.save(bienes);
   }
 
@@ -37,7 +48,7 @@ export class BienesService {
   }
 
   async update(id: number, updateBienDto: UpdateBienDto) {
-    return await this.bienesRepository.update(id, updateBienDto);
+    /* return await this.bienesRepository.update(id, updateBienDto); */
   }
 
   //* eliminacion fisica
