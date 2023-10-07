@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateBienesSolicitudDto } from './dto/create-bienes-solicitud.dto';
 import { UpdateBienesSolicitudDto } from './dto/update-bienes-solicitud.dto';
 import { BienesSolicitud } from './entities/bienes-solicitud.entity';
+import { Bienes } from 'src/bienes/entities/bienes.entity';
 
 
 @Injectable()
@@ -12,10 +13,19 @@ export class BienesSolicitudService {
   constructor(
     @InjectRepository(BienesSolicitud)
     private readonly bienesSolicitudRepository: Repository<BienesSolicitud>,
+
+    @InjectRepository(Bienes)
+    private readonly bienesRepository: Repository<Bienes>,
   ) { }
 
   async create(createBienesSolicitudDto: CreateBienesSolicitudDto) {
-    const bienesSolicitud = this.bienesSolicitudRepository.create(createBienesSolicitudDto);
+    const bienes = await this.bienesRepository.findOneBy({nombre_bien: createBienesSolicitudDto.bienes});
+    if (!bienes) throw new NotFoundException(`No se pudo encontrar el bien con el ID: ${createBienesSolicitudDto.bienes} proporcionado`);
+
+    const bienesSolicitud = this.bienesSolicitudRepository.create({
+      ...createBienesSolicitudDto,
+      bienes: bienes,
+    });
     return await this.bienesSolicitudRepository.save(bienesSolicitud);
   }
 
@@ -33,9 +43,9 @@ export class BienesSolicitudService {
     return bienesSolicitud;
   }
 
-  async update(id: number, updateBienesSolicitudDto: UpdateBienesSolicitudDto) {
+/*   async update(id: number, updateBienesSolicitudDto: UpdateBienesSolicitudDto) {
     return await this.bienesSolicitudRepository.update(id, updateBienesSolicitudDto);
-  }
+  } */
 
   //* eliminacion fisica
   remove(id: number) {
