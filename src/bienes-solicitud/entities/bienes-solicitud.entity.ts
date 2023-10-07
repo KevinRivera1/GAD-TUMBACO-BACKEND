@@ -86,7 +86,7 @@ export class BienesSolicitud {
   estado: boolean;
 
   // Relación muchos a uno con la tabla bienes
-  @ManyToOne(() => Bienes, (bienes) => bienes.bienesSolicitud)
+  @ManyToOne(() => Bienes, (bienes) => bienes.id_bienes)
   @JoinColumn({ name: "id_bienes" })
   bienes: Bienes;
 
