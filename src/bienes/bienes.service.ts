@@ -16,7 +16,8 @@ export class BienesService {
 
   async findAll(): Promise<Bienes[]> {
     //return await this.bienesRepository.find({where : {disponibilidad:false}});
-    return await this.bienesRepository.find({relations: ['categorias', 'bienesSolicitud']});
+    //return await this.bienesRepository.find({relations: ['categorias', 'bienesSolicitud']});
+    return await this.bienesRepository.find();
   }
 
 
