@@ -79,7 +79,7 @@ export class BienesSolicitud {
   observacion: string;
 
   @Column({
-    name: "esatado",
+    name: "estado",
     type: "bool",
     comment: "Se registrará el estado de la solicitud, si esta aprobada o no",
   })
