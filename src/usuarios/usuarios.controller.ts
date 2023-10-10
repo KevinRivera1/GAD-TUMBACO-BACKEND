@@ -1,14 +1,37 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Put, Res } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UsuariosService } from "./usuarios.service";
 import { CreateUsuarioDto } from "./dto/create-usuario.dto";
 import { UpdateUsuarioDto } from "./dto/update-usuario.dto";
-
+import * as jwt from 'jsonwebtoken';
+import { LoginDto } from "./dto/login.dto";
 
 @ApiTags('usuarios')
 @Controller('usuarios')
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
+
+
+  @Post('login')
+async login(@Body() loginDto: LoginDto) {
+  const user = await this.usuariosService.validateUser(loginDto.correo, loginDto.clave);
+
+  if (user) {
+    // Usuario autenticado exitosamente
+    // Genera un token JWT directamente aquí (sin authService)
+    const payload = { username: user.correo, sub: user.clave }; // Ajusta esto según tus necesidades
+    const token = this.generateJwtToken(payload);
+
+    return { token };
+  }
+
+  throw new HttpException('Credenciales incorrectas', HttpStatus.UNAUTHORIZED);
+}
+
+// Agrega este método para generar el token JWT
+private generateJwtToken(payload: any): string {
+  return jwt.sign(payload, 'tu_secreto_secreto', { expiresIn: '1h' });
+}
 
    @ApiOperation({ summary: 'Registrar Usuarios' })
   @ApiResponse({ status: 200, description: 'Elemento creado correctamente' })
