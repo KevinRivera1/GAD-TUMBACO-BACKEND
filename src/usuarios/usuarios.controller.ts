@@ -14,12 +14,12 @@ export class UsuariosController {
 
   @Post('login')
 async login(@Body() loginDto: LoginDto) {
-  const user = await this.usuariosService.validateUser(loginDto.correo, loginDto.clave);
+  const user = await this.usuariosService.validateUser(loginDto.correo, loginDto.clave , loginDto.id_roles);
 
   if (user) {
     // Usuario autenticado exitosamente
     // Genera un token JWT directamente aquí (sin authService)
-    const payload = { username: user.correo, sub: user.clave }; // Ajusta esto según tus necesidades
+    const payload = { username: user.correo, sub: user.clave , rol: user.rol }; // Ajusta esto según tus necesidades
     const token = this.generateJwtToken(payload);
 
     return { token };

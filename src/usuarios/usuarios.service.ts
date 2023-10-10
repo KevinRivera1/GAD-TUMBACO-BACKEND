@@ -19,16 +19,20 @@ export class UsuariosService {
     private readonly rolesRepository: Repository<RolesEntity>
   ) { }
 
-  async validateUser(correo: string, clave: string) {
-    const user = await this.usuarioRepository.findOne({ where: { correo } });
+  async validateUser(correo: string, clave: string, id_roles: number) {
+    const user = await this.usuarioRepository.findOne({
+      where: { correo },
+      relations: ['rol'] // Esto carga la relación 'rol'
+    });
   
-    if (user && user.clave === clave) {
-      // El usuario y la contraseña son válidos
+    if (user && user.clave === clave && user.rol.id_roles === id_roles) {
+      // El usuario, la contraseña y el rol son válidos
       return user;
     }
   
     return null; // Credenciales incorrectas
   }
+  
 
   
 
