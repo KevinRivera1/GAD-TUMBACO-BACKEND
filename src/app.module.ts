@@ -11,6 +11,8 @@ import { RolesModule } from './roles/roles.module';
 import { EstadosModule } from './estados/estados.module';
 import { ProyectoModule } from './proyecto/proyecto.module';
 import { PresidenciaModule } from './presidencia/presidencia.module';
+import { OficiosSecretariaModule } from './oficios-secretaria/oficios-secretaria.module';
+import { CertificadosSecretariaModule } from './certificados-secretaria/certificados-secretaria.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { PresidenciaModule } from './presidencia/presidencia.module';
     EstadosModule,
     ProyectoModule,
     PresidenciaModule,
+    OficiosSecretariaModule,
+    CertificadosSecretariaModule,
   ],
   controllers: [],
   providers: [],

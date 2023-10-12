@@ -1,4 +1,5 @@
 import { Bienes } from "src/bienes/entities/bienes.entity";
+import { CertificadosSecretariaEntity } from "src/certificados-secretaria/entities/certificados-secretaria.entity";
 import {
   Column,
   CreateDateColumn,
@@ -89,6 +90,11 @@ export class BienesSolicitud {
   @ManyToOne(() => Bienes, (bienes) => bienes.bienesSolicitud)
   @JoinColumn({ name: "id_bienes" })
   bienes: Bienes[];
+
+  @ManyToOne(type => CertificadosSecretariaEntity, certificado => certificado.id_certificados)
+  @JoinColumn({ name: 'id_certificados' })
+  certificados: CertificadosSecretariaEntity;
+
 
   @CreateDateColumn({
     name: "created_at",

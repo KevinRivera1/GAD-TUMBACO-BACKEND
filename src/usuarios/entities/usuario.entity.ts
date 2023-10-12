@@ -1,4 +1,5 @@
 import { EstadosEntity } from "src/estados/entities/estado.entity";
+import { OficiosSecretariaEntity } from "src/oficios-secretaria/entities/oficios-secretaria.entity";
 import { RolesEntity } from "src/roles/entities/role.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -85,7 +86,7 @@ export class Usuario{
  
 
  /*Relacion: un usario puede tener varios oficios */ 
-/*     @OneToMany(type => OficiosEntity, oficio => oficio.usuarios)
+     @OneToMany(type => OficiosSecretariaEntity, oficio => oficio.usuarios)
     @JoinColumn({ name: 'id_oficios' }) 
-    oficios: OficiosEntity[]; */
+    oficios: OficiosSecretariaEntity[]; 
 }
