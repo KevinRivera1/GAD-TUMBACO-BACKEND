@@ -75,15 +75,17 @@ export class Bienes {
   disponibilidad: boolean;
 
   // Relación muchos a uno con la tabla categorias
-  @ManyToOne(() => BienesCategoria, (categorias) => categorias.bienes, {
+  @ManyToOne(() => BienesCategoria, (categorias) => categorias.id_categorias, {
     cascade: true,
+    eager: true,
   })
   @JoinColumn({ name: "id_categorias" })
-  categorias: BienesCategoria[];
+  categorias: BienesCategoria;
 
   // Relación uno a muchos con la tabla bienes-solicitud
   @OneToMany(() => BienesSolicitud, (solicitud) => solicitud.bienes, {
     cascade: true,
+    eager: true,
   })
   @JoinColumn({ name: "id_solicitud_bienes" })
   bienesSolicitud: BienesSolicitud[];

@@ -37,4 +37,8 @@ export class CreateBienesSolicitudDto {
   @IsBoolean()
   @ApiProperty()
   estado: boolean;
+
+  @IsString()
+  @ApiProperty()
+  bienes: string;
 }
