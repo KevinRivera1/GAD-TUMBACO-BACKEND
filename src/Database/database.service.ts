@@ -14,7 +14,33 @@ export class DatabaseService {
       database: process.env.NAME_DB,
     });
   }
-//Se verifica si ya estan creados primeramente antes de insertar
+  //Se verifica si ya estan creados primeramente antes de insertar
+
+  async estadoExistsActivo(): Promise<boolean> {
+    const client = await this.pool.connect();
+    try {
+      const query = `
+      SELECT COUNT(*) FROM estados WHERE nombre = 'Activo';
+    `;
+      const result = await client.query(query);
+      return result.rows[0].count > 0;
+    } finally {
+      client.release();
+    }
+  }
+
+  async estadoExistsInactivo(): Promise<boolean> {
+    const client = await this.pool.connect();
+    try {
+      const query = `
+      SELECT COUNT(*) FROM estados WHERE nombre = 'Inactivo';
+    `;
+      const result = await client.query(query);
+      return result.rows[0].count > 0;
+    } finally {
+      client.release();
+    }
+  }
   async roleExistsPresidencia(): Promise<boolean> {
     const client = await this.pool.connect();
     try {
@@ -27,6 +53,7 @@ export class DatabaseService {
       client.release();
     }
   }
+
   async roleExistsProyectos(): Promise<boolean> {
     const client = await this.pool.connect();
     try {
@@ -39,7 +66,7 @@ export class DatabaseService {
       client.release();
     }
   }
-  
+
   async roleExistsSecretaria(): Promise<boolean> {
     const client = await this.pool.connect();
     try {
@@ -53,7 +80,6 @@ export class DatabaseService {
     }
   }
 
-  
   async roleExistsContabilidad(): Promise<boolean> {
     const client = await this.pool.connect();
     try {
@@ -67,13 +93,27 @@ export class DatabaseService {
     }
   }
 
-//insercion de datos
+  //insercion de datos
 
   async insertIntoRoles() {
     const client = await this.pool.connect();
     try {
-   
-  
+      // Verifica si ya existe estado 'Activo'
+      if (!(await this.estadoExistsActivo())) {
+        const queryestadoActivo = `
+      INSERT INTO estados (id_estados,nombre, acronimo,descripcion)
+      VALUES (1,'Activo','EA', 'Estado activo del Usuario');
+    `;
+        await client.query(queryestadoActivo);
+      }
+      // Verifica si ya existe estado 'Inactivo'
+      if (!(await this.estadoExistsInactivo())) {
+        const queryestadoInactivo = `
+      INSERT INTO estados (id_estados,nombre, acronimo,descripcion)
+      VALUES (2,'Inactivo','IA', 'Estado inactivo del Usuario');
+    `;
+        await client.query(queryestadoInactivo);
+      }
       // Verifica si ya existe 'Presidencia'
       if (!(await this.roleExistsPresidencia())) {
         const queryPresidencia = `
@@ -82,7 +122,7 @@ export class DatabaseService {
         `;
         await client.query(queryPresidencia);
       }
-  
+
       // Verifica si ya existe 'Proyectos'
       if (!(await this.roleExistsProyectos())) {
         const queryProyectos = `
@@ -91,7 +131,7 @@ export class DatabaseService {
         `;
         await client.query(queryProyectos);
       }
-  
+
       // Verifica si ya existe 'Secretaria'
       if (!(await this.roleExistsSecretaria())) {
         const querySecretaria = `
@@ -100,7 +140,7 @@ export class DatabaseService {
         `;
         await client.query(querySecretaria);
       }
-  
+
       // Verifica si ya existe 'Contabilidad'
       if (!(await this.roleExistsContabilidad())) {
         const queryContabilidad = `
@@ -109,12 +149,10 @@ export class DatabaseService {
         `;
         await client.query(queryContabilidad);
       }
-  
+
       // Agrega más inserciones aquí, verificando si ya existen.
     } finally {
       client.release();
     }
   }
-  
-  
 }
