@@ -11,6 +11,10 @@ import { RolesModule } from './roles/roles.module';
 import { EstadosModule } from './estados/estados.module';
 import { DatabaseService } from "./Database/database.service";
 import { DatabaseModule } from "./Database/database.module";
+import { ProyectoModule } from './proyecto/proyecto.module';
+import { PresidenciaModule } from './presidencia/presidencia.module';
+import { OficiosSecretariaModule } from './oficios-secretaria/oficios-secretaria.module';
+import { CertificadosSecretariaModule } from './certificados-secretaria/certificados-secretaria.module';
 
 @Module({
   imports: [
@@ -30,6 +34,10 @@ import { DatabaseModule } from "./Database/database.module";
     RolesModule,
     EstadosModule,
     DatabaseModule
+    ProyectoModule,
+    PresidenciaModule,
+    OficiosSecretariaModule,
+    CertificadosSecretariaModule,
   ],
   controllers: [],
   providers: [],

@@ -1,44 +1,49 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsString } from "class-validator";
+import {  IsString } from "class-validator";
 
-export class CreateBienesSolicitudDto {
+export class CreateOficiosSecretariaDto {
   @IsString()
   @ApiProperty()
-  nombreResponsable: string;
-
-  @IsString()
-  @ApiProperty()
-  apellidoResponsable: string;
+  nombreFirmante: string;
 
   @IsString()
   @ApiProperty()
-  destino: string;
+  apellidoFirmante: string;
+
+
 
   @IsString()
   @ApiProperty()
-  movilizacion: string;
+  fechaRecibido: Date;
 
   @IsString()
   @ApiProperty()
-  duracionEvento: string;
+  fechaOficio: Date;
 
   @IsString()
   @ApiProperty()
-  repartidor: string;
+  organizacionRemitente: string;
+
 
   @IsString()
   @ApiProperty()
-  receptor: string;
+  archivo: string;
 
   @IsString()
   @ApiProperty()
-  observacion: string;
-
-  @IsBoolean()
-  @ApiProperty()
-  estado: boolean;
+  requerimiento: string;
 
   @IsString()
   @ApiProperty()
-  bienes: string;
+  delegacion: string;
+
+  @IsString()
+  @ApiProperty()
+  prioridad: string;
+
+  @IsString()
+  @ApiProperty()
+  comentario: string;
+
+
 }

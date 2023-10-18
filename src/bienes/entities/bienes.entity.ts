@@ -1,5 +1,5 @@
-import { BienesCategoria } from "src/bienes-categorias/entities/bienes-categoria.entity";
-import { BienesSolicitud } from "src/bienes-solicitud/entities/bienes-solicitud.entity";
+import { BienesCategoria } from 'src/bienes-categorias/entities/bienes-categoria.entity';
+import { BienesSolicitud } from 'src/bienes-solicitud/entities/bienes-solicitud.entity';
 import {
   Column,
   CreateDateColumn,
@@ -75,14 +75,20 @@ export class Bienes {
   disponibilidad: boolean;
 
   // Relación muchos a uno con la tabla categorias
-  @ManyToOne(() => BienesCategoria, (categorias) => categorias.bienes)
+  @ManyToOne(() => BienesCategoria, (categorias) => categorias.id_categorias, {
+    cascade: true,
+    eager: true,
+  })
   @JoinColumn({ name: "id_categorias" })
   categorias: BienesCategoria;
 
-
-  @OneToMany(() => BienesSolicitud, solicitud => solicitud.bienes)
+  // Relación uno a muchos con la tabla bienes-solicitud
+  @OneToMany(() => BienesSolicitud, (solicitud) => solicitud.bienes, {
+    cascade: true,
+    eager: true,
+  })
   @JoinColumn({ name: "id_solicitud_bienes" })
-  bienesSolicitud: BienesSolicitud;
+  bienesSolicitud: BienesSolicitud[];
 
   @CreateDateColumn({
     name: "created_at",

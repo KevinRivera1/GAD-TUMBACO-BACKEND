@@ -39,7 +39,7 @@ export class BienesCategoriasController {
 
   @ApiOperation({ summary: 'Actualizar Categorias por ID' })
   @ApiResponse({ status: 200, description: 'Elemento actualizado correctamente' })
-  @Patch(':id')
+  @Patch('update/:id')
   update(@Param('id') id: string, @Body() updateBienesCategoriaDto: UpdateBienesCategoriaDto) {
     return this.bienesCategoriasService.update(+id, updateBienesCategoriaDto);
   }
