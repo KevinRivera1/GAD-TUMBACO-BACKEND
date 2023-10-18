@@ -58,7 +58,7 @@ export class Departamento {
 
     
 
-    @OneToOne(() => Presidencia, (presidencia) => presidencia.departamentos) // specify inverse side as a second parameter
+    @OneToOne(() => Presidencia, (presidencia) => presidencia.id_presidencia) // specify inverse side as a second parameter
     @JoinColumn()
     presidencia: Presidencia 
 

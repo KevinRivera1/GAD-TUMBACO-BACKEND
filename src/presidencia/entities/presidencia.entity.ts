@@ -48,7 +48,7 @@ export class Presidencia {
       estado: boolean;
 
       @OneToOne(() => Departamento, (departamentos) => departamentos.presidencia) // specify inverse side as a second parameter
-      departamentos: Departamento
+      presidencia: Presidencia
 
     }
      
