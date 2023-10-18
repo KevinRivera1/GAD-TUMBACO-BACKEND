@@ -33,7 +33,7 @@ import { CertificadosSecretariaModule } from './certificados-secretaria/certific
     DepartamentoModule,
     RolesModule,
     EstadosModule,
-    DatabaseModule
+    DatabaseModule,
     ProyectoModule,
     PresidenciaModule,
     OficiosSecretariaModule,
