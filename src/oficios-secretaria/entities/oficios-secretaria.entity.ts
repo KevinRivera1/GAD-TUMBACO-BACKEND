@@ -81,6 +81,12 @@ export class OficiosSecretariaEntity {
      name: 'comentario'
      })
   comentario: string;
+  
+    /*Campo del estado de la solicitud*/ 
+    @Column({
+      name: 'estado'
+      })
+   estado: string;
 
    /*Relacion: varios certificados puede tener una solicitud */ 
    @ManyToOne(type => CertificadosSecretariaEntity, certificado => certificado.oficios_secretaria)

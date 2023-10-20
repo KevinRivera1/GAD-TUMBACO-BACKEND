@@ -56,7 +56,7 @@ export class Proyecto {
   @Column({
     name: "imagen",
     type: "varchar",
-    length: 100,
+    length: 500,
     comment: "Se registrará la imagen",
   })
   imagen: string;
