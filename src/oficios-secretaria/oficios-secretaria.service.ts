@@ -36,6 +36,7 @@ export class OficiosSecretariaService {
     nuevo.delegacion = oficioNuevo.delegacion;
     nuevo.prioridad = oficioNuevo.prioridad;
     nuevo.comentario = oficioNuevo.comentario;
+    nuevo.estado = oficioNuevo.estado;
     return this.oficioRepository.save(nuevo);
   }
 
@@ -58,6 +59,7 @@ export class OficiosSecretariaService {
     oficioUpdate.delegacion = oficioActualizar.delegacion;
     oficioUpdate.prioridad = oficioActualizar.prioridad;
     oficioUpdate.comentario = oficioActualizar.comentario;
+    oficioUpdate.estado = oficioActualizar.estado;
     return await this.oficioRepository.save(oficioUpdate);
   }
 

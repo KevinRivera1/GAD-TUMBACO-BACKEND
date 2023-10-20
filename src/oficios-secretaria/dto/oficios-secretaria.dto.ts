@@ -45,5 +45,9 @@ export class CreateOficiosSecretariaDto {
   @ApiProperty()
   comentario: string;
 
+  @IsString()
+  @ApiProperty()
+  estado: string;
+
 
 }
