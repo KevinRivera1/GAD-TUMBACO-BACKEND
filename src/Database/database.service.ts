@@ -166,8 +166,8 @@ export class DatabaseService {
       // Verifica si ya existe usuario 'Presidencia'
       if (!(await this.usuariopresidenciaExists())) {
         const queryusuariopresidencia = `
-          INSERT INTO usuarios (id_usuarios, nombres, apellidos, clave, correo, identificacion, celular, id_roles, id_estado)
-          VALUES (1, 'Gad Tumbaco', 'Tumbaco', 'tumbaco2023', 'tumbaco@hotmail.com', '', '', 1, 1);
+          INSERT INTO usuarios (nombres, apellidos, clave, correo, identificacion, celular, id_roles, id_estado)
+          VALUES ('Gad Tumbaco', 'Tumbaco', 'tumbaco2023', 'tumbaco@hotmail.com', '', '', 1, 1);
         `;
         await client.query(queryusuariopresidencia);
       }
