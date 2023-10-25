@@ -10,23 +10,23 @@ export class CreateCertificadosSecretariaDto {
     @IsString()
     @ApiProperty()
     responsable: string;
-    
+
     @IsString()
-     @ApiProperty()
-     fechaRecibido: Date;
-    
+    @ApiProperty()
+    fechaRecibido: Date;
+
     @IsString()
     @ApiProperty()
     fechaEmision: Date;
-    
+
     @IsString()
     @ApiProperty()
     fechaDevolucion: Date;
-    
+
     @IsString()
     @ApiProperty()
     comentario: string;
-    
+
     @IsString()
     @ApiProperty()
     cedula: string;
@@ -34,12 +34,12 @@ export class CreateCertificadosSecretariaDto {
     @IsString()
     @ApiProperty()
     servicioBasico: string;
-    
+
     @IsString()
     @ApiProperty()
     escrituras: string;
-    
+
     @IsString()
     @ApiProperty()
     oficio: string;
-    }
+}

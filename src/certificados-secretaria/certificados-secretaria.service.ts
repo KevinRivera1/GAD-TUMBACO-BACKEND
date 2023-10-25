@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { FindOneOptions, Repository } from "typeorm";
 import { CreateCertificadosSecretariaDto } from "./dto/certificados-secretaria.dto";
 import { CertificadosSecretariaEntity } from "./entities/certificados-secretaria.entity";
-import { FindOneOptions, Repository } from "typeorm";
 
 
 @Injectable()
@@ -10,7 +10,7 @@ export class CertificadoService {
   constructor(
     @InjectRepository(CertificadosSecretariaEntity)
     private readonly certificadoRepository: Repository<CertificadosSecretariaEntity>,
-  ) {}
+  ) { }
 
   async getAll(): Promise<CertificadosSecretariaEntity[]> {
     return await this.certificadoRepository.find();
@@ -24,7 +24,7 @@ export class CertificadoService {
   async createCertificado(certificadoNuevo: CreateCertificadosSecretariaDto): Promise<CertificadosSecretariaEntity> {
     const nuevo = new CertificadosSecretariaEntity();
     nuevo.requerimiento = certificadoNuevo.requerimiento;
-    nuevo.responsable = certificadoNuevo. responsable;
+    nuevo.responsable = certificadoNuevo.responsable;
     nuevo.fechaRecibido = certificadoNuevo.fechaRecibido;
     nuevo.fechaEmision = certificadoNuevo.fechaEmision;
     nuevo.fechaDevolucion = certificadoNuevo.fechaDevolucion;
@@ -40,7 +40,7 @@ export class CertificadoService {
     idCertificado: number,
     certificadoActualizar: CreateCertificadosSecretariaDto,
   ): Promise<CertificadosSecretariaEntity> {
-    const options: FindOneOptions<CertificadosSecretariaEntity> = { where: { id_certificados: idCertificado} };
+    const options: FindOneOptions<CertificadosSecretariaEntity> = { where: { id_certificados: idCertificado } };
     const certificadoUpdate = await this.certificadoRepository.findOne(options);
     certificadoUpdate.requerimiento = certificadoActualizar.requerimiento;
     certificadoUpdate.responsable = certificadoActualizar.responsable;
