@@ -108,17 +108,15 @@ export class CertificadosSecretariaEntity {
 
     /*Relacion: una oficcio puede tener varios certificados */
     @OneToMany(
-        (type) => CertificadosSecretariaEntity,
+        () => CertificadosSecretariaEntity,
         (oficios_secretaria) => oficios_secretaria.secretaria
     )
     @JoinColumn({ name: "id_certificados" })
     secretaria: CertificadosSecretariaEntity[];
     oficios_secretaria: any;
 
-    @OneToMany(
-        (type) => BienesSolicitud,
-        (solicitudes) => solicitudes.id_solicitud_bienes
-    )
-    @JoinColumn({ name: "id_solicitud_bienes" })
+    @OneToMany(() => BienesSolicitud, solicitudes => solicitudes.certificados)
+    @JoinColumn({ name: 'id_certificados' })
     solicitudes: BienesSolicitud[];
+
 }
