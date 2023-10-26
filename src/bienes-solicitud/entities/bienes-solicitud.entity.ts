@@ -1,4 +1,5 @@
 import { Bienes } from "src/bienes/entities/bienes.entity";
+import { CertificadosSecretariaEntity } from "src/certificados-secretaria/entities/certificados-secretaria.entity";
 import {
   Column,
   CreateDateColumn,
@@ -79,16 +80,21 @@ export class BienesSolicitud {
   observacion: string;
 
   @Column({
-    name: "esatado",
+    name: "estado",
     type: "bool",
     comment: "Se registrará el estado de la solicitud, si esta aprobada o no",
   })
   estado: boolean;
 
   // Relación muchos a uno con la tabla bienes
-  @ManyToOne(() => Bienes, (bienes) => bienes.bienesSolicitud)
+  @ManyToOne(() => Bienes, (bienes) => bienes.id_bienes)
   @JoinColumn({ name: "id_bienes" })
   bienes: Bienes;
+
+  @ManyToOne(type => CertificadosSecretariaEntity, certificado => certificado.id_certificados)
+  @JoinColumn({ name: 'id_certificados' })
+  certificados: CertificadosSecretariaEntity;
+
 
   @CreateDateColumn({
     name: "created_at",

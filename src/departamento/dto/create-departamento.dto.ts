@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
+import { CreatePresidenciaDto } from "src/presidencia/dto/create-presidencia.dto";
 
 export class CreateDepartamentoDto {
 
@@ -10,5 +11,10 @@ export class CreateDepartamentoDto {
     @IsString()
     @ApiProperty()
     descripcion: string;
+
+
+  
+
+
 
 }

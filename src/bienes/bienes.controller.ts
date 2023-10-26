@@ -33,7 +33,7 @@ export class BienesController {
 
   @ApiOperation({ summary: 'Actualizar Bienes por ID' })
   @ApiResponse({ status: 200, description: 'Elemento actualizado correctamente' })
-  @Put(':id')
+  @Put('update/:id')
   updateBien(@Param('id') id: string, @Body() updateBienDto: UpdateBienDto) {
     return this.bienesService.update(+id, updateBienDto);
   }

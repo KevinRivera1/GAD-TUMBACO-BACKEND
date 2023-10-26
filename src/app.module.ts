@@ -12,6 +12,10 @@ import { EstadosModule } from './estados/estados.module';
 import { DatabaseService } from "./Database/database.service";
 import { DatabaseModule } from "./Database/database.module";
 import { MailerModule } from '@nestjs-modules/mailer';
+import { ProyectoModule } from './proyecto/proyecto.module';
+import { PresidenciaModule } from './presidencia/presidencia.module';
+import { OficiosSecretariaModule } from './oficios-secretaria/oficios-secretaria.module';
+import { CertificadosSecretariaModule } from './certificados-secretaria/certificados-secretaria.module';
 
 @Module({
   imports: [
@@ -30,7 +34,11 @@ import { MailerModule } from '@nestjs-modules/mailer';
     DepartamentoModule,
     RolesModule,
     EstadosModule,
-    DatabaseModule
+    DatabaseModule,
+    ProyectoModule,
+    PresidenciaModule,
+    OficiosSecretariaModule,
+    CertificadosSecretariaModule,
   ],
   controllers: [],
   providers: [],
