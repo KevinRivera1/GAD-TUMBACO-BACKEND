@@ -6,6 +6,12 @@ import { CreateUsuarioDto } from "./dto/create-usuario.dto";
 import { UpdateUsuarioDto } from "./dto/update-usuario.dto";
 import { EstadosEntity } from "src/estados/entities/estado.entity";
 import { RolesEntity } from "src/roles/entities/role.entity";
+import { RequestResetPasswordDto } from "./dto/reset-password.dto";
+import { UsuariosRepository } from "./usuarios.repository";
+import { v4 } from 'uuid';
+import { ResetPasswordDto } from "./dto/validated-password.dto";
+import { EncoderService } from "./encoder.service";
+import { EmailService } from './email.service';
 
 @Injectable()
 export class UsuariosService {
@@ -16,7 +22,11 @@ export class UsuariosService {
     @InjectRepository(EstadosEntity) // Inyecta el repositorio de EstadosEntity
     private readonly estadosRepository: Repository<EstadosEntity>,
     @InjectRepository(RolesEntity) // Inyecta el repositorio de EstadosEntity
-    private readonly rolesRepository: Repository<RolesEntity>
+    private readonly rolesRepository: Repository<RolesEntity>,
+    @InjectRepository(UsuariosRepository) // Inyecta el repositorio de EstadosEntity
+    private usuariosRepository: UsuariosRepository,
+    private encoderService: EncoderService,
+    private emailService: EmailService
   ) { }
 
   async validateUser(correo: string, clave: string, id_roles: number) {
@@ -33,8 +43,30 @@ export class UsuariosService {
     return null; // Credenciales incorrectas
   }
   
+  async findByEmail(correo: string): Promise<Usuario | undefined> {
+    return this.usuarioRepository.findOne({ where: { correo } });
+  }
 
-  
+  async findById(id: number): Promise<Usuario | undefined> {
+  return this.usuarioRepository.findOne({where: {id_usuarios: id}});
+  }
+
+  async requestResetPassword(requestResetPasswordDto: RequestResetPasswordDto): Promise<void>{
+    const {correo} = requestResetPasswordDto;
+    const user: Usuario = await this.usuarioRepository.findOne({ where: { correo } });
+    user.resetPasswordToken = v4();
+    this.usuarioRepository.save(user);
+    await this.emailService.sendPasswordResetEmail(correo, user.resetPasswordToken);
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<void> {
+    const {resetPasswordToken, clave} = resetPasswordDto;
+    const user: Usuario = await this.usuarioRepository.findOne({ where: { resetPasswordToken} });
+
+    user.clave = await this.encoderService.encodePassword(clave);
+    user.resetPasswordToken = null;
+    this.usuarioRepository.save(user);
+  }
 
   async findAll() {
     //return await this.bienesRepository.find({where : {disponibilidad:false}});

@@ -11,6 +11,7 @@ import { RolesModule } from './roles/roles.module';
 import { EstadosModule } from './estados/estados.module';
 import { DatabaseService } from "./Database/database.service";
 import { DatabaseModule } from "./Database/database.module";
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [

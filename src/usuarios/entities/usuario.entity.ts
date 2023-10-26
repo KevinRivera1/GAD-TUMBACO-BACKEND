@@ -35,7 +35,7 @@ export class Usuario{
     @Column({
         name: 'clave',
         type: 'varchar',
-        length: 16,
+        length: 260,
         comment: 'clave del usuario',
     
     })
@@ -46,8 +46,7 @@ export class Usuario{
         name: 'correo',
         type: 'varchar',
         length: 100,
-        comment: 'correo del usuario',
-    
+        comment: 'correo del usuario'
     })
     correo: string;
 
@@ -72,6 +71,14 @@ export class Usuario{
     
     })
     celular: string;
+
+    @Column({ 
+        type: 'uuid', 
+        unique: true, 
+        name:'reset_password_token', 
+        nullable: true
+    })
+    resetPasswordToken: string;
     
 /*Relacion: muchos usarios puede tener un rol */ 
     @ManyToOne(type => RolesEntity, rol => rol.usuarios)
