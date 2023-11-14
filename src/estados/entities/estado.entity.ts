@@ -52,15 +52,17 @@ export class EstadosEntity {
     })
     deleteAt: Date;
 
+    @Column({
+        name: 'bloqueo_expira',
+        type: 'timestamptz',
+        nullable: true,
+        comment: 'Fecha en la que el usuario expira su bloqueo',
+    })
+    bloqueo_expira: Date;
+
      /*Relacion: un usuario puede tener varios estados */ 
     @OneToMany(type => Usuario, usuario => usuario.estado)
     @JoinColumn({ name: 'id_estados' }) 
     usuarios: Usuario[];
-
-     /*Relacion: un oficio puede tener varios estados */ 
-/*     @OneToMany(type => OficiosEntity, oficios => oficios.estados)
-    @JoinColumn({ name: 'id_estados' }) 
-    oficios: OficiosEntity[]; */
-
 
 }

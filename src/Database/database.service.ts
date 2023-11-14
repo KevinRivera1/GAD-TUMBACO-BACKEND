@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Pool } from 'pg';
+import * as bcrypt from 'bcrypt';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Injectable()
 export class DatabaseService {
@@ -60,6 +63,20 @@ export class DatabaseService {
       client.release();
     }
   }
+
+  async estadoExistsBloqueado(): Promise<boolean> {
+    const client = await this.pool.connect();
+    try {
+      const query = `
+      SELECT COUNT(*) FROM estados WHERE nombre = 'Bloqueado';
+    `;
+      const result = await client.query(query);
+      return result.rows[0].count > 0;
+    } finally {
+      client.release();
+    }
+  }
+
   async roleExistsPresidencia(): Promise<boolean> {
     const client = await this.pool.connect();
     try {
@@ -133,6 +150,14 @@ export class DatabaseService {
         `;
         await client.query(queryestadoInactivo);
       }
+
+      if (!(await this.estadoExistsBloqueado())) {
+        const queryestadoBloqueado = `
+          INSERT INTO estados (id_estados, nombre, acronimo, descripcion)
+          VALUES (3, 'Bloqueado', 'EB', 'Estado bloqueado del Usuario');
+        `;
+        await client.query(queryestadoBloqueado);
+      }
       // Verifica si ya existe 'Presidencia'
       if (!(await this.roleExistsPresidencia())) {
         const queryPresidencia = `
@@ -168,12 +193,16 @@ export class DatabaseService {
       
       // Realiza la inserción de usuarios al final
       // Verifica si ya existe usuario 'Presidencia'
+      const dbPassword = process.env.SUPER_USER_KEY;
       if (!(await this.usuariopresidenciaExists())) {
+        const plainPassword = dbPassword;
+        const hashedPassword = await bcrypt.hash(plainPassword, 10);
         const queryusuariopresidencia = `
           INSERT INTO usuarios (nombres, apellidos, clave, correo, identificacion, celular, id_roles, id_estado)
-          VALUES ('Gad Tumbaco', 'Tumbaco', 'tumbaco2023', 'tumbaco@hotmail.com', '', '', 1, 1);
+          VALUES ('Gad Tumbaco', 'Tumbaco', $1, 'tumbaco@hotmail.com', '', '', 1, 1);
         `;
-        await client.query(queryusuariopresidencia);
+  
+        await client.query(queryusuariopresidencia, [hashedPassword]);
       }
     } finally {
       client.release();

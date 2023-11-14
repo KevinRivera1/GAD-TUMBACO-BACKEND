@@ -8,28 +8,34 @@ import { LoginDto } from "./dto/login.dto";
 import * as bcrypt from 'bcrypt';
 import { RequestResetPasswordDto } from "./dto/reset-password.dto";
 import { ResetPasswordDto } from "./dto/validated-password.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { EstadosEntity } from "src/estados/entities/estado.entity";
+import { Repository } from "typeorm";
+import { Usuario } from "./entities/usuario.entity";
+import moment from "moment";
 
 @ApiTags('usuarios')
 @Controller('usuarios')
 export class UsuariosController {
-  constructor(private readonly usuariosService: UsuariosService) {}
-
-  @Post('login')
-  async login(@Body() loginDto: LoginDto) {
-    const user = await this.usuariosService.findByEmail(loginDto.correo);
-    if (user) {
-      const isPasswordValid = await bcrypt.compare(loginDto.clave, user.clave);
-      if (isPasswordValid) {
-        const payload = { username: user.correo, sub: user.clave, rol: user.rol };
-        const token = this.generateJwtToken(payload);
-        return { token };
+  constructor(
+    private readonly usuariosService: UsuariosService
+    ) {}
+    @Post('login')
+    async login(@Body() loginDto: LoginDto) {
+      const user = await this.usuariosService.findByEmail(loginDto.correo);
+      if (user) {
+        const isPasswordValid = await bcrypt.compare(loginDto.clave, user.clave);
+        if (isPasswordValid) {
+          const payload = { username: user.correo, sub: user.clave, rol: user.rol };
+          const token = this.generateJwtToken(payload);
+          return { token };
+        }
       }
+      throw new HttpException('Credenciales incorrectas', HttpStatus.UNAUTHORIZED);
     }
-    throw new HttpException('Credenciales incorrectas', HttpStatus.UNAUTHORIZED);
-  }
-    private generateJwtToken(payload: any): string {
-      return jwt.sign(payload, 'tu_secreto_secreto', { expiresIn: '1h' });
-  }
+      private generateJwtToken(payload: any): string {
+        return jwt.sign(payload, 'tu_secreto_secreto', { expiresIn: '1h' });
+    }
 
 @Patch('/request-reset-password')
 requestResetPaswword(@Body()requestResetPasswordDto:RequestResetPasswordDto): Promise<void>{
@@ -88,29 +94,8 @@ async create(@Body() createUsuarioDto: CreateUsuarioDto) {
   @ApiOperation({ summary: 'Actualizar Usuarios por ID' })
   @ApiResponse({ status: 200, description: 'Elemento actualizado correctamente' })
   @Put('actualizarusuario/:id')
-  async updateBien(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
-    try {
-      const existingUser = await this.usuariosService.findById(+id);
-
-      if (!existingUser) {
-        throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND);
-      }
-      if (updateUsuarioDto.nombres) {
-        existingUser.nombres = updateUsuarioDto.nombres;
-      }
-      if (updateUsuarioDto.apellidos) {
-        existingUser.apellidos = updateUsuarioDto.apellidos;
-      }
-      if (updateUsuarioDto.clave) {
-        const saltRounds = 10;
-        existingUser.clave = await bcrypt.hash(updateUsuarioDto.clave, saltRounds);
-      }
-      const updatedUser = await this.usuariosService.update(existingUser.id_usuarios, existingUser);
-
-      return { message: 'Usuario actualizado exitosamente', user: updatedUser, status: HttpStatus.OK };
-    } catch (error) {
-      throw new HttpException('Error al actualizar el usuario', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+  updateBien(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
+    return this.usuariosService.update(+id, updateUsuarioDto);
   }
 
   @ApiOperation({ summary: 'Actualizar Usuarios por ID' })

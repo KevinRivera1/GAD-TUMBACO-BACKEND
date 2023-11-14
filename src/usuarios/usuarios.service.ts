@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Usuario } from "./entities/usuario.entity";
 import { Repository } from "typeorm";
@@ -7,7 +7,6 @@ import { UpdateUsuarioDto } from "./dto/update-usuario.dto";
 import { EstadosEntity } from "src/estados/entities/estado.entity";
 import { RolesEntity } from "src/roles/entities/role.entity";
 import { RequestResetPasswordDto } from "./dto/reset-password.dto";
-import { UsuariosRepository } from "./usuarios.repository";
 import { v4 } from 'uuid';
 import { ResetPasswordDto } from "./dto/validated-password.dto";
 import { EncoderService } from "./encoder.service";
@@ -23,8 +22,6 @@ export class UsuariosService {
     private readonly estadosRepository: Repository<EstadosEntity>,
     @InjectRepository(RolesEntity) // Inyecta el repositorio de EstadosEntity
     private readonly rolesRepository: Repository<RolesEntity>,
-    @InjectRepository(UsuariosRepository) // Inyecta el repositorio de EstadosEntity
-    private usuariosRepository: UsuariosRepository,
     private encoderService: EncoderService,
     private emailService: EmailService
   ) { }
