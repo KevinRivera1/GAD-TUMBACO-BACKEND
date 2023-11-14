@@ -1,13 +1,13 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
-import { CreateCertificadosSecretariaDto } from "./dto/certificados-secretaria.dto";
-import { CertificadoService } from "./certificados-secretaria.service";
 import { ApiTags } from "@nestjs/swagger";
+import { CertificadoService } from "./certificados-secretaria.service";
+import { CreateCertificadosSecretariaDto } from "./dto/certificados-secretaria.dto";
 
 
 @ApiTags('certificados')
 @Controller('certificados')
 export class CertificadoController {
-  constructor(private certificadoServices: CertificadoService) {}
+  constructor(private certificadoServices: CertificadoService) { }
 
   @Post('crearcertificado')
   create(@Body() createCreateCertificadosSecretariaDto: CreateCertificadosSecretariaDto, @Res() response) {
