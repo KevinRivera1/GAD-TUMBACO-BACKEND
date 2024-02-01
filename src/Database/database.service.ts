@@ -18,24 +18,24 @@ export class DatabaseService {
     });
   }
 
-    //Se verifica si ya estan creado el usuario presidencia antes de insertar
+  //Se verifica si ya estan creado el usuario presidencia antes de insertar
 
-    async usuariopresidenciaExists(): Promise<boolean> {
-      const client = await this.pool.connect();
-      try {
-        const query = `
+  async usuariopresidenciaExists(): Promise<boolean> {
+    const client = await this.pool.connect();
+    try {
+      const query = `
         SELECT COUNT(*) FROM usuarios 
         WHERE id_usuarios = 1 
         OR nombres = 'Gad Tumbaco' 
         OR apellidos = 'Tumbaco' 
         OR correo = 'tumbaco@hotmail.com';
       `;
-        const result = await client.query(query);
-        return result.rows[0].count > 0;
-      } finally {
-        client.release();
-      }
+      const result = await client.query(query);
+      return result.rows[0].count > 0;
+    } finally {
+      client.release();
     }
+  }
   //Se verifica si ya estan creados primeramente antes de insertar
 
   async estadoExistsActivo(): Promise<boolean> {
@@ -190,7 +190,7 @@ export class DatabaseService {
         `;
         await client.query(queryContabilidad);
       }
-      
+
       // Realiza la inserción de usuarios al final
       // Verifica si ya existe usuario 'Presidencia'
       const dbPassword = process.env.SUPER_USER_KEY;
@@ -201,12 +201,11 @@ export class DatabaseService {
           INSERT INTO usuarios (nombres, apellidos, clave, correo, identificacion, celular, id_roles, id_estado)
           VALUES ('Gad Tumbaco', 'Tumbaco', $1, 'tumbaco@hotmail.com', '', '', 1, 1);
         `;
-  
+
         await client.query(queryusuariopresidencia, [hashedPassword]);
       }
     } finally {
       client.release();
     }
   }
-  
 }

@@ -25,7 +25,7 @@ export class CreateProyectoDto {
   @IsString()
   @ApiProperty()
   detalle: string;
-  
+
   @IsString()
   @ApiProperty()
   imagen: string;

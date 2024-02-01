@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, HttpStatus, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Put,
+  HttpStatus,
+  Res,
+} from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
@@ -19,27 +30,35 @@ export class RolesController {
   @ApiOperation({ summary: 'Listar Roles' })
   @ApiResponse({ status: 200, description: 'Elementos listados correctamente' })
   @Get('listarroles')
-  findAll(){
+  findAll() {
     return this.rolesService.findAll();
   }
 
   @ApiOperation({ summary: 'Buscar Roles por ID' })
-  @ApiResponse({ status: 200, description: 'Elemento encontrado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento encontrado correctamente',
+  })
   @Get('listarroles/:id')
   findOne(@Param('id') id: string) {
     return this.rolesService.findOne(+id);
   }
 
-
   @ApiOperation({ summary: 'Actualizar Roles por ID' })
-  @ApiResponse({ status: 200, description: 'Elemento actualizado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento actualizado correctamente',
+  })
   @Put('actualizarroles/:id')
   updateBien(@Param('id') id: string, @Body() updateRolesDto: UpdateRoleDto) {
     return this.rolesService.update(+id, updateRolesDto);
   }
 
   @ApiOperation({ summary: 'Actualizar Roles por ID' })
-  @ApiResponse({ status: 200, description: 'Elemento actualizado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento actualizado correctamente',
+  })
   @Patch('actualizarroles/:id')
   update(@Param('id') id: string, @Body() updateRolesDto: UpdateRoleDto) {
     return this.rolesService.update(+id, updateRolesDto);
@@ -53,7 +72,10 @@ export class RolesController {
   } */
 
   @ApiOperation({ summary: 'Eliminar Roles por ID logica' })
-  @ApiResponse({ status: 200, description: 'Elemento eliminado correctamente de forma logica' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento eliminado correctamente de forma logica',
+  })
   @Delete('eliminarroles/:id')
   async delete(@Res() response, @Param('id') idRoles) {
     {
@@ -69,7 +91,10 @@ export class RolesController {
   }
 
   @ApiOperation({ summary: 'Restaurar Roles por ID logica' })
-  @ApiResponse({ status: 200, description: 'Elemento restaurado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento restaurado correctamente',
+  })
   @Patch('restoreroles/:id')
   restoreBien(@Param('id') id: number): Promise<void> {
     return this.rolesService.restoreBien(id);

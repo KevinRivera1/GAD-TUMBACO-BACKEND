@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BienesCategoriasService } from './bienes-categorias.service';
 import { CreateBienesCategoriaDto } from './dto/create-bienes-categoria.dto';
@@ -7,11 +16,13 @@ import { UpdateBienesCategoriaDto } from './dto/update-bienes-categoria.dto';
 @ApiTags('bienes-categorias')
 @Controller('bienes-categorias')
 export class BienesCategoriasController {
-  constructor(private readonly bienesCategoriasService: BienesCategoriasService) {}
+  constructor(
+    private readonly bienesCategoriasService: BienesCategoriasService,
+  ) {}
 
   @ApiOperation({ summary: 'Registrar Categorias' })
   @ApiResponse({ status: 200, description: 'Elemento creado correctamente' })
-  @Post('create') 
+  @Post('create')
   create(@Body() createBienesCategoriaDto: CreateBienesCategoriaDto) {
     return this.bienesCategoriasService.create(createBienesCategoriaDto);
   }
@@ -24,23 +35,38 @@ export class BienesCategoriasController {
   }
 
   @ApiOperation({ summary: 'Buscar Categorias por ID' })
-  @ApiResponse({ status: 200, description: 'Elemento encontrado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento encontrado correctamente',
+  })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.bienesCategoriasService.findOne(+id);
   }
 
   @ApiOperation({ summary: 'Actualizar Categorias por ID' })
-  @ApiResponse({ status: 200, description: 'Elemento actualizado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento actualizado correctamente',
+  })
   @Put(':id')
-  updateCategoria(@Param('id') id: string, @Body() updateBienesCategoriaDto: UpdateBienesCategoriaDto) {
+  updateCategoria(
+    @Param('id') id: string,
+    @Body() updateBienesCategoriaDto: UpdateBienesCategoriaDto,
+  ) {
     return this.bienesCategoriasService.update(+id, updateBienesCategoriaDto);
   }
 
   @ApiOperation({ summary: 'Actualizar Categorias por ID' })
-  @ApiResponse({ status: 200, description: 'Elemento actualizado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento actualizado correctamente',
+  })
   @Patch('update/:id')
-  update(@Param('id') id: string, @Body() updateBienesCategoriaDto: UpdateBienesCategoriaDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateBienesCategoriaDto: UpdateBienesCategoriaDto,
+  ) {
     return this.bienesCategoriasService.update(+id, updateBienesCategoriaDto);
   }
 
@@ -52,14 +78,20 @@ export class BienesCategoriasController {
   }
 
   @ApiOperation({ summary: 'Eliminar Categorias por ID logica' })
-  @ApiResponse({ status: 200, description: 'Elemento eliminado correctamente de forma logica' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento eliminado correctamente de forma logica',
+  })
   @Delete('softDelete/:id')
   deleteSoftCategoria(@Param('id') id: number): Promise<void> {
     return this.bienesCategoriasService.deleteSoftCategoria(id);
   }
 
   @ApiOperation({ summary: 'Restaurar Categorias por ID logica' })
-  @ApiResponse({ status: 200, description: 'Elemento restaurado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento restaurado correctamente',
+  })
   @Patch('restore/:id')
   restoreCategoria(@Param('id') id: number): Promise<void> {
     return this.bienesCategoriasService.restoreCategoria(id);

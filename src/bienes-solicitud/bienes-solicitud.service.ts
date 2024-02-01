@@ -6,21 +6,24 @@ import { CreateBienesSolicitudDto } from './dto/create-bienes-solicitud.dto';
 import { UpdateBienesSolicitudDto } from './dto/update-bienes-solicitud.dto';
 import { BienesSolicitud } from './entities/bienes-solicitud.entity';
 
-
 @Injectable()
 export class BienesSolicitudService {
-
   constructor(
     @InjectRepository(BienesSolicitud)
     private readonly bienesSolicitudRepository: Repository<BienesSolicitud>,
 
     @InjectRepository(Bienes)
     private readonly bienesRepository: Repository<Bienes>,
-  ) { }
+  ) {}
 
   async create(createBienesSolicitudDto: CreateBienesSolicitudDto) {
-    const bienes = await this.bienesRepository.findOneBy({ nombre_bien: createBienesSolicitudDto.bienes });
-    if (!bienes) throw new NotFoundException(`No se pudo encontrar el bien con el ID: ${createBienesSolicitudDto.bienes} proporcionado`);
+    const bienes = await this.bienesRepository.findOneBy({
+      nombre_bien: createBienesSolicitudDto.bienes,
+    });
+    if (!bienes)
+      throw new NotFoundException(
+        `No se pudo encontrar el bien con el ID: ${createBienesSolicitudDto.bienes} proporcionado`,
+      );
 
     const bienesSolicitud = this.bienesSolicitudRepository.create({
       ...createBienesSolicitudDto,
@@ -39,15 +42,23 @@ export class BienesSolicitudService {
       relations: ['bienes'],
     });
 
-    if (!bienesSolicitud) throw new NotFoundException("No se pudo encontrar el Registro de Bienes con el ID proporcionado");
+    if (!bienesSolicitud)
+      throw new NotFoundException(
+        'No se pudo encontrar el Registro de Bienes con el ID proporcionado',
+      );
     return bienesSolicitud;
   }
 
   async update(id: number, updateBienesSolicitudDto: UpdateBienesSolicitudDto) {
     //return await this.bienesSolicitudRepository.update(id, updateBienesSolicitudDto);
-    const bienes = await this.bienesRepository.findOneBy({ nombre_bien: updateBienesSolicitudDto.bienes });
+    const bienes = await this.bienesRepository.findOneBy({
+      nombre_bien: updateBienesSolicitudDto.bienes,
+    });
 
-    if (!bienes) throw new NotFoundException(`No se pudo encontrar el bien con el nombre: ${updateBienesSolicitudDto.bienes} proporcionado`);
+    if (!bienes)
+      throw new NotFoundException(
+        `No se pudo encontrar el bien con el nombre: ${updateBienesSolicitudDto.bienes} proporcionado`,
+      );
 
     const bienesSolicitud = await this.bienesSolicitudRepository.preload({
       id_solicitud_bienes: id,
@@ -63,7 +74,6 @@ export class BienesSolicitudService {
     return `This action removes a #${id} bienesSolicitud`;
   }
 
-
   //* eliminacion logica
   async deleteSolicitud(id: number): Promise<void> {
     await this.bienesSolicitudRepository.softDelete(id);
@@ -73,5 +83,4 @@ export class BienesSolicitudService {
   async restoreSolicitud(id: number): Promise<void> {
     await this.bienesSolicitudRepository.restore(id);
   }
-
 }

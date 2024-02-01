@@ -1,5 +1,5 @@
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { DataSource, DataSourceOptions } from "typeorm";
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DataSource, DataSourceOptions } from 'typeorm';
 
 ConfigModule.forRoot({
   envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -8,12 +8,12 @@ ConfigModule.forRoot({
 const configService = new ConfigService();
 
 export const DataSourceconfig: DataSourceOptions = {
-  type: "postgres",
-  host: configService.get("HOST_DB"),
-  port: configService.get("PORT_DB"),
-  username: configService.get("USERNAME_DB"),
-  password: configService.get("PASSWORD_DB"),
-  database: configService.get("NAME_DB"),
+  type: 'postgres',
+  host: configService.get('HOST_DB'),
+  port: configService.get('PORT_DB'),
+  username: configService.get('USERNAME_DB'),
+  password: configService.get('PASSWORD_DB'),
+  database: configService.get('NAME_DB'),
   synchronize: true,
 };
 

@@ -10,24 +10,28 @@ export class DepartamentoService {
   constructor(
     @InjectRepository(Departamento)
     private readonly departamentoRepository: Repository<Departamento>,
-  ) { }
-
+  ) {}
 
   async findAll() {
     //return await this.bienesRepository.find({where : {disponibilidad:false}});
     return await this.departamentoRepository.find();
   }
 
-
   async create(createdepartamentoDto: CreateDepartamentoDto) {
-    const departamentos = this.departamentoRepository.create(createdepartamentoDto);
+    const departamentos = this.departamentoRepository.create(
+      createdepartamentoDto,
+    );
     return await this.departamentoRepository.save(departamentos);
   }
 
-
   async findOne(id: number): Promise<Departamento> {
-    const departamentos = await this.departamentoRepository.findOneBy({ id_departamentos: id });
-    if (!departamentos) throw new NotFoundException("No se pudo encontrar el Registro de departamentos con el ID proporcionado");
+    const departamentos = await this.departamentoRepository.findOneBy({
+      id_departamentos: id,
+    });
+    if (!departamentos)
+      throw new NotFoundException(
+        'No se pudo encontrar el Registro de departamentos con el ID proporcionado',
+      );
     return departamentos;
   }
 
@@ -41,17 +45,16 @@ export class DepartamentoService {
   }
 
   //* eliminacion logica
-  async deleteSoftBien(id : number): Promise<void> {
+  async deleteSoftBien(id: number): Promise<void> {
     await this.departamentoRepository.softDelete(id);
   }
 
   //* restauracion logica
-  async restoreBien(id : number): Promise<void> {
+  async restoreBien(id: number): Promise<void> {
     await this.departamentoRepository.restore(id);
   }
 
   async deleteDepartamento(idDepartamento: number): Promise<any> {
     return await this.departamentoRepository.delete(idDepartamento);
   }
-
 }

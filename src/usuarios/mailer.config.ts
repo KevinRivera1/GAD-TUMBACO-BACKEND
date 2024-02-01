@@ -5,7 +5,7 @@ export const mailerConfig: MailerOptions = {
     service: 'SendGrid',
     auth: {
       user: 'apikey',
-      pass: process.env.SENDGRID_API_KEY
+      pass: process.env.SENDGRID_API_KEY,
     },
   },
   defaults: {

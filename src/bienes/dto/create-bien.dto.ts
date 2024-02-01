@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsInt, IsNumber, IsString, Min } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsInt, IsNumber, IsString, Min } from 'class-validator';
 
 export class CreateBienDto {
   @IsString()
@@ -34,5 +34,5 @@ export class CreateBienDto {
 
   @IsString()
   @ApiProperty()
-  categorias:string;
+  categorias: string;
 }

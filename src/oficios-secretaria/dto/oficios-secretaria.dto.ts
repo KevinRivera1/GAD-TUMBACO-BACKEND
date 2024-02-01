@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import {  IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
 
 export class CreateOficiosSecretariaDto {
   @IsString()
@@ -9,8 +9,6 @@ export class CreateOficiosSecretariaDto {
   @IsString()
   @ApiProperty()
   apellidoFirmante: string;
-
-
 
   @IsString()
   @ApiProperty()
@@ -23,7 +21,6 @@ export class CreateOficiosSecretariaDto {
   @IsString()
   @ApiProperty()
   organizacionRemitente: string;
-
 
   @IsString()
   @ApiProperty()
@@ -48,6 +45,4 @@ export class CreateOficiosSecretariaDto {
   @IsString()
   @ApiProperty()
   estado: string;
-
-
 }

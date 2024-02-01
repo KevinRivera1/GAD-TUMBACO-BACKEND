@@ -1,27 +1,30 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { FindOneOptions, Repository } from "typeorm";
-import { CreateCertificadosSecretariaDto } from "./dto/certificados-secretaria.dto";
-import { CertificadosSecretariaEntity } from "./entities/certificados-secretaria.entity";
-
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
+import { CreateCertificadosSecretariaDto } from './dto/certificados-secretaria.dto';
+import { CertificadosSecretariaEntity } from './entities/certificados-secretaria.entity';
 
 @Injectable()
 export class CertificadoService {
   constructor(
     @InjectRepository(CertificadosSecretariaEntity)
     private readonly certificadoRepository: Repository<CertificadosSecretariaEntity>,
-  ) { }
+  ) {}
 
   async getAll(): Promise<CertificadosSecretariaEntity[]> {
     return await this.certificadoRepository.find();
   }
 
   async getOne(idCertificado: number): Promise<CertificadosSecretariaEntity> {
-    const options: FindOneOptions<CertificadosSecretariaEntity> = { where: { id_certificados: idCertificado } };
+    const options: FindOneOptions<CertificadosSecretariaEntity> = {
+      where: { id_certificados: idCertificado },
+    };
     return await this.certificadoRepository.findOne(options);
   }
 
-  async createCertificado(certificadoNuevo: CreateCertificadosSecretariaDto): Promise<CertificadosSecretariaEntity> {
+  async createCertificado(
+    certificadoNuevo: CreateCertificadosSecretariaDto,
+  ): Promise<CertificadosSecretariaEntity> {
     const nuevo = new CertificadosSecretariaEntity();
     nuevo.requerimiento = certificadoNuevo.requerimiento;
     nuevo.responsable = certificadoNuevo.responsable;
@@ -40,7 +43,9 @@ export class CertificadoService {
     idCertificado: number,
     certificadoActualizar: CreateCertificadosSecretariaDto,
   ): Promise<CertificadosSecretariaEntity> {
-    const options: FindOneOptions<CertificadosSecretariaEntity> = { where: { id_certificados: idCertificado } };
+    const options: FindOneOptions<CertificadosSecretariaEntity> = {
+      where: { id_certificados: idCertificado },
+    };
     const certificadoUpdate = await this.certificadoRepository.findOne(options);
     certificadoUpdate.requerimiento = certificadoActualizar.requerimiento;
     certificadoUpdate.responsable = certificadoActualizar.responsable;

@@ -9,4 +9,4 @@ import { CertificadosSecretariaEntity } from './entities/certificados-secretaria
   controllers: [CertificadoController],
   providers: [CertificadoService],
 })
-export class CertificadosSecretariaModule { }
+export class CertificadosSecretariaModule {}

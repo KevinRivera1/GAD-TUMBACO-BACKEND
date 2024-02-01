@@ -8,10 +8,7 @@ export class EncoderService {
     return await bcrypt.hash(clave, salt);
   }
 
-  async checkPassword(
-    clave: string,
-    userPassword: string,
-  ): Promise<boolean> {
+  async checkPassword(clave: string, userPassword: string): Promise<boolean> {
     return await bcrypt.compare(clave, userPassword);
   }
 }

@@ -7,9 +7,10 @@ export class EmailService {
   constructor(private readonly mailerService: MailerService) {}
 
   async sendPasswordResetEmail(correo: string, token: string): Promise<void> {
-
     const horaEcuador = new Date();
-    const horaFechEcuador = horaEcuador.toLocaleString('es-EC', { timeZoneName: 'short' });
+    const horaFechEcuador = horaEcuador.toLocaleString('es-EC', {
+      timeZoneName: 'short',
+    });
 
     const htmlMessage = `
 Gad Tumbaco: Usted ha proporcionado su correo electrónico para la recuperación de su clave.

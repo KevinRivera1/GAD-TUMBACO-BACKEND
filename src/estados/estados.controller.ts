@@ -1,10 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, HttpStatus, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Put,
+  HttpStatus,
+  Res,
+} from '@nestjs/common';
 import { EstadosService } from './estados.service';
 import { CreateEstadoDto } from './dto/create-estado.dto';
 import { UpdateEstadoDto } from './dto/update-estado.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-
-
 
 @ApiTags('estados')
 @Controller('estados')
@@ -21,27 +30,38 @@ export class EstadosController {
   @ApiOperation({ summary: 'Listar Estado' })
   @ApiResponse({ status: 200, description: 'Elementos listados correctamente' })
   @Get('listarestado')
-  findAll(){
+  findAll() {
     return this.estadoService.findAll();
   }
 
   @ApiOperation({ summary: 'Buscar Estado por ID' })
-  @ApiResponse({ status: 200, description: 'Elemento encontrado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento encontrado correctamente',
+  })
   @Get('listarestado/:id')
   findOne(@Param('id') id: string) {
     return this.estadoService.findOne(+id);
   }
 
-
   @ApiOperation({ summary: 'Actualizar Estado por ID' })
-  @ApiResponse({ status: 200, description: 'Elemento actualizado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento actualizado correctamente',
+  })
   @Put('actualizarestado/:id')
-  updateBien(@Param('id') id: string, @Body() updateEstadoDto: UpdateEstadoDto) {
+  updateBien(
+    @Param('id') id: string,
+    @Body() updateEstadoDto: UpdateEstadoDto,
+  ) {
     return this.estadoService.update(+id, updateEstadoDto);
   }
 
   @ApiOperation({ summary: 'Actualizar Estado por ID' })
-  @ApiResponse({ status: 200, description: 'Elemento actualizado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento actualizado correctamente',
+  })
   @Patch('actualizarestado/:id')
   update(@Param('id') id: string, @Body() updateEstadoDto: UpdateEstadoDto) {
     return this.estadoService.update(+id, updateEstadoDto);
@@ -55,7 +75,10 @@ export class EstadosController {
   } */
 
   @ApiOperation({ summary: 'Eliminar Estado por ID logica' })
-  @ApiResponse({ status: 200, description: 'Elemento eliminado correctamente de forma logica' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento eliminado correctamente de forma logica',
+  })
   @Delete('eliminarestado/:id')
   async delete(@Res() response, @Param('id') idEstado) {
     {
@@ -71,10 +94,12 @@ export class EstadosController {
   }
 
   @ApiOperation({ summary: 'Restaurar Estado por ID logica' })
-  @ApiResponse({ status: 200, description: 'Elemento restaurado correctamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Elemento restaurado correctamente',
+  })
   @Patch('restoreestado/:id')
   restoreBien(@Param('id') id: number): Promise<void> {
     return this.estadoService.restoreBien(id);
   }
-
 }

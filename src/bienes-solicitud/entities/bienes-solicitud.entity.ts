@@ -1,5 +1,5 @@
-import { Bienes } from "src/bienes/entities/bienes.entity";
-import { CertificadosSecretariaEntity } from "src/certificados-secretaria/entities/certificados-secretaria.entity";
+import { Bienes } from 'src/bienes/entities/bienes.entity';
+import { CertificadosSecretariaEntity } from 'src/certificados-secretaria/entities/certificados-secretaria.entity';
 import {
   Column,
   CreateDateColumn,
@@ -9,104 +9,114 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm";
+} from 'typeorm';
 
-@Entity({ name: "bienes_solicitud" })
+@Entity({ name: 'bienes_solicitud' })
 export class BienesSolicitud {
   @PrimaryGeneratedColumn()
   id_solicitud_bienes: number;
 
   @Column({
-    name: "nombres_responsable",
-    type: "varchar",
+    name: 'nombres_responsable',
+    type: 'varchar',
     length: 100,
-    comment: "nombres del responsable",
+    comment: 'nombres del responsable',
   })
   nombreResponsable: string;
 
   @Column({
-    name: "apellidos_responsable",
-    type: "varchar",
+    name: 'apellidos_responsable',
+    type: 'varchar',
     length: 100,
-    comment: "apellidos del responsable",
+    comment: 'apellidos del responsable',
   })
   apellidoResponsable: string;
 
   @Column({
-    name: "destino",
-    type: "varchar",
-    comment: "destino de la solicitud",
+    name: 'destino',
+    type: 'varchar',
+    comment: 'destino de la solicitud',
   })
   destino: string;
 
   @Column({
-    name: "movilizacion",
-    type: "varchar",
+    name: 'movilizacion',
+    type: 'varchar',
     length: 100,
-    comment: "movilizacion para la solicitud",
+    comment: 'movilizacion para la solicitud',
   })
   movilizacion: string;
 
   @Column({
-    name: "duracion_evento",
-    type: "varchar",
+    name: 'duracion_evento',
+    type: 'varchar',
     length: 100,
-    comment: "Duracion del evento",
+    comment: 'Duracion del evento',
   })
   duracionEvento: string;
 
   @Column({
-    name: "repartidor",
-    type: "varchar",
+    name: 'repartidor',
+    type: 'varchar',
     length: 100,
-    comment: "repartidos del bien o bienes",
+    comment: 'repartidos del bien o bienes',
   })
   repartidor: string;
 
   @Column({
-    name: "receptor",
-    type: "varchar",
+    name: 'receptor',
+    type: 'varchar',
     length: 100,
-    comment: "receptor del bien o bienes",
+    comment: 'receptor del bien o bienes',
   })
   receptor: string;
 
   @Column({
-    name: "observacion",
-    type: "varchar",
+    name: 'observacion',
+    type: 'varchar',
     length: 100,
-    comment: "observacion de la solicitud",
+    comment: 'observacion de la solicitud',
   })
   observacion: string;
 
   @Column({
-    name: "estado",
-    type: "bool",
-    comment: "Se registrará el estado de la solicitud, si esta aprobada o no",
+    name: 'estado',
+    type: 'bool',
+    comment: 'Se registrará el estado de la solicitud, si esta aprobada o no',
   })
   estado: boolean;
 
   // Relación muchos a uno con la tabla bienes
   @ManyToOne(() => Bienes, (bienes) => bienes.id_bienes)
-  @JoinColumn({ name: "id_bienes" })
+  @JoinColumn({ name: 'id_bienes' })
   bienes: Bienes;
 
-  @ManyToOne(type => CertificadosSecretariaEntity, certificado => certificado.id_certificados)
+  @ManyToOne(
+    (type) => CertificadosSecretariaEntity,
+    (certificado) => certificado.id_certificados,
+  )
   @JoinColumn({ name: 'id_certificados' })
   certificados: CertificadosSecretariaEntity;
 
-
   @CreateDateColumn({
-    name: "created_at",
-    type: "timestamp",
-    comment: "Fecha de creación del registro",
-    default: () => "CURRENT_TIMESTAMP",
+    name: 'created_at',
+    type: 'timestamp',
+    comment: 'Fecha de creación del registro',
+    default: () => 'CURRENT_TIMESTAMP',
   })
   createAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at", type: "timestamp", comment: "Fecha de actualización del registro"})
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp',
+    comment: 'Fecha de actualización del registro',
+  })
   updateAt: Date;
 
-  @DeleteDateColumn({ name: "deleted_at", type: "timestamp", comment: "Fecha de eliminación del registro"})
+  @DeleteDateColumn({
+    name: 'deleted_at',
+    type: 'timestamp',
+    comment: 'Fecha de eliminación del registro',
+  })
   deleteAt: Date;
 }

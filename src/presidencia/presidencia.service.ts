@@ -7,24 +7,28 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class PresidenciaService {
-
   constructor(
     @InjectRepository(Presidencia)
     private readonly presidenciaRepository: Repository<Presidencia>,
-  ) { }
+  ) {}
 
   async create(createPresidenciaDto: CreatePresidenciaDto) {
     const presidencia = this.presidenciaRepository.create(createPresidenciaDto);
     return await this.presidenciaRepository.save(presidencia);
   }
 
-  async findAll(): Promise<Presidencia[]>  {
+  async findAll(): Promise<Presidencia[]> {
     return await this.presidenciaRepository.find();
   }
 
   async findOne(id: number): Promise<Presidencia> {
-    const presidencia = await this.presidenciaRepository.findOneBy({ id_presidencia: id });
-    if (!presidencia) throw new NotFoundException("No se pudo encontrar el Registro de Bienes con el ID proporcionado");
+    const presidencia = await this.presidenciaRepository.findOneBy({
+      id_presidencia: id,
+    });
+    if (!presidencia)
+      throw new NotFoundException(
+        'No se pudo encontrar el Registro de Bienes con el ID proporcionado',
+      );
     return presidencia;
   }
 
@@ -38,12 +42,12 @@ export class PresidenciaService {
   }
 
   //* eliminacion logica
-  async deleteSoftPresidencia(id : number): Promise<void> {
+  async deleteSoftPresidencia(id: number): Promise<void> {
     await this.presidenciaRepository.softDelete(id);
   }
 
   //* restauracion logica
-  async restorePresidencia(id : number): Promise<void> {
+  async restorePresidencia(id: number): Promise<void> {
     await this.presidenciaRepository.restore(id);
   }
 }

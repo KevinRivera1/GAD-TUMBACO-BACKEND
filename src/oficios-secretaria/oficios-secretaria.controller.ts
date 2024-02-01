@@ -1,7 +1,17 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
-import { CreateOficiosSecretariaDto } from "./dto/oficios-secretaria.dto";
-import { OficiosSecretariaService } from "./oficios-secretaria.service";
-import { ApiTags } from "@nestjs/swagger";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Res,
+} from '@nestjs/common';
+import { CreateOficiosSecretariaDto } from './dto/oficios-secretaria.dto';
+import { OficiosSecretariaService } from './oficios-secretaria.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('oficios-secretaria')
 @Controller('oficios-secretaria')
@@ -9,9 +19,11 @@ export class OficiosSecretariaController {
   constructor(private OficiosSecretariaService: OficiosSecretariaService) {}
 
   @Post('crearoficio')
-  create(@Body() CreateOficiosSecretariaDto: CreateOficiosSecretariaDto, @Res() response) {
-    this.OficiosSecretariaService
-      .createOficio(CreateOficiosSecretariaDto)
+  create(
+    @Body() CreateOficiosSecretariaDto: CreateOficiosSecretariaDto,
+    @Res() response,
+  ) {
+    this.OficiosSecretariaService.createOficio(CreateOficiosSecretariaDto)
       .then((oficio) => {
         response.status(HttpStatus.CREATED).json(oficio);
       })
@@ -25,7 +37,8 @@ export class OficiosSecretariaController {
   @Get('listaroficio')
   async getAll(@Res() response) {
     try {
-      const OficiossecretariaList = await this.OficiosSecretariaService.getAll();
+      const OficiossecretariaList =
+        await this.OficiosSecretariaService.getAll();
       response.status(HttpStatus.OK).json(OficiossecretariaList);
     } catch {
       return response
@@ -52,8 +65,10 @@ export class OficiosSecretariaController {
     @Res() response,
     @Param('id') idOficio,
   ) {
-    return this.OficiosSecretariaService
-      .updateOficio(idOficio, updateOficiosSecretariaDto)
+    return this.OficiosSecretariaService.updateOficio(
+      idOficio,
+      updateOficiosSecretariaDto,
+    )
       .then((oficio) => {
         response.status(HttpStatus.OK).json(oficio);
       })

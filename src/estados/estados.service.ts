@@ -10,24 +10,24 @@ export class EstadosService {
   constructor(
     @InjectRepository(EstadosEntity)
     private readonly estadoRepository: Repository<EstadosEntity>,
-  ) { }
-
+  ) {}
 
   async findAll() {
     //return await this.bienesRepository.find({where : {disponibilidad:false}});
     return await this.estadoRepository.find();
   }
 
-
   async create(createestadoDto: CreateEstadoDto) {
     const estados = this.estadoRepository.create(createestadoDto);
     return await this.estadoRepository.save(estados);
   }
 
-
   async findOne(id: number): Promise<EstadosEntity> {
     const estados = await this.estadoRepository.findOneBy({ id_estados: id });
-    if (!estados) throw new NotFoundException("No se pudo encontrar el Registro de estados con el ID proporcionado");
+    if (!estados)
+      throw new NotFoundException(
+        'No se pudo encontrar el Registro de estados con el ID proporcionado',
+      );
     return estados;
   }
 
@@ -41,12 +41,12 @@ export class EstadosService {
   }
 
   //* eliminacion logica
-  async deleteSoftBien(id : number): Promise<void> {
+  async deleteSoftBien(id: number): Promise<void> {
     await this.estadoRepository.softDelete(id);
   }
 
   //* restauracion logica
-  async restoreBien(id : number): Promise<void> {
+  async restoreBien(id: number): Promise<void> {
     await this.estadoRepository.restore(id);
   }
 

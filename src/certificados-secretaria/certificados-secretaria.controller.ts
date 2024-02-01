@@ -1,16 +1,29 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { CertificadoService } from "./certificados-secretaria.service";
-import { CreateCertificadosSecretariaDto } from "./dto/certificados-secretaria.dto";
-
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Res,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { CertificadoService } from './certificados-secretaria.service';
+import { CreateCertificadosSecretariaDto } from './dto/certificados-secretaria.dto';
 
 @ApiTags('certificados')
 @Controller('certificados')
 export class CertificadoController {
-  constructor(private certificadoServices: CertificadoService) { }
+  constructor(private certificadoServices: CertificadoService) {}
 
   @Post('crearcertificado')
-  create(@Body() createCreateCertificadosSecretariaDto: CreateCertificadosSecretariaDto, @Res() response) {
+  create(
+    @Body()
+    createCreateCertificadosSecretariaDto: CreateCertificadosSecretariaDto,
+    @Res() response,
+  ) {
     this.certificadoServices
       .createCertificado(createCreateCertificadosSecretariaDto)
       .then((certificado) => {
@@ -49,7 +62,8 @@ export class CertificadoController {
 
   @Put('actualizarcertificado/:id')
   async update(
-    @Body() updateCreateCertificadosSecretariaDto: CreateCertificadosSecretariaDto,
+    @Body()
+    updateCreateCertificadosSecretariaDto: CreateCertificadosSecretariaDto,
     @Res() response,
     @Param('id') idCertificado,
   ) {
@@ -69,7 +83,8 @@ export class CertificadoController {
   async delete(@Res() response, @Param('id') idCertificado) {
     {
       try {
-        const res = await this.certificadoServices.deleteCertificado(idCertificado);
+        const res =
+          await this.certificadoServices.deleteCertificado(idCertificado);
         response.status(HttpStatus.OK).json(res);
       } catch {
         return response
