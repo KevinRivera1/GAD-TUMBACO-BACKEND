@@ -27,12 +27,13 @@
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Requisitos
-
-1. **PostgreSQL**: Tener instalado **PostgreSQL**
-2. **Base de Datos**: Crear una base de datos con el --> "Nombre" especifico en los --> **".develop.env"** => **"NAME_DB"**
+  1. [✔️] **Node.js**: Tener instalado **Node.js** en su versión **18.18.2** o superior
+  2. [✔️] **Nestjs**: Tener instalado **Nestjs** en su versión **10.2.1** o superior
+  3. [✔️] **PostgreSQL**: Tener instalado **PostgreSQL**
+  4. [✔️] **Base de Datos**: Crear una base de datos con el --> "Nombre" especifico en los --> **".develop.env"** => **"NAME_DB"**
 
 > [!NOTE]
-> Las tablas de base de datos se crean automaticamente al levantar el servidor de Nestjs
+> **Las tablas de base de datos se crean automaticamente al levantar el servidor de Nestjs**
 
 
 ## Instrucciones de Instalación
