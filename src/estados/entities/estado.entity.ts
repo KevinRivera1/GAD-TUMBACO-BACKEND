@@ -10,21 +10,24 @@ export class EstadosEntity {
     @Column({
         name:'nombre', 
         type: 'varchar', 
-        length: 100 
+        length: 100,
+        comment: 'Nombre del estado' 
     })
     nombre_estado: string;
 
     @Column({
         name:'acronimo',
         type: 'varchar', 
-        length: 10 
+        length: 10,
+        comment: 'Acronimo del estado' 
     })
     acronimo: string;
 
     @Column({
         name:'descripcion', 
         type: 'varchar', 
-        length: 200 
+        length: 200,
+        comment: 'Descripcion del estado' 
     })
     descripcion_estado: string;
 

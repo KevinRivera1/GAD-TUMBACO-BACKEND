@@ -93,6 +93,7 @@ export class Bienes {
   @CreateDateColumn({
     name: "created_at",
     type: "timestamp",
+    comment: "Fecha de creación del registro",
     default: () => "CURRENT_TIMESTAMP",
   })
   createAt: Date;
@@ -100,9 +101,10 @@ export class Bienes {
   @UpdateDateColumn({
     name: "updated_at",
     type: "timestamp",
+    comment: "Fecha de actualización del registro",
   })
   updateAt: Date;
 
-  @DeleteDateColumn({ name: "deleted_at", type: "timestamp" })
+  @DeleteDateColumn({ name: "deleted_at", type: "timestamp", comment: "Fecha de eliminación del registro"})
   deleteAt: Date;
 }

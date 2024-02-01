@@ -99,13 +99,14 @@ export class BienesSolicitud {
   @CreateDateColumn({
     name: "created_at",
     type: "timestamp",
+    comment: "Fecha de creación del registro",
     default: () => "CURRENT_TIMESTAMP",
   })
   createAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
+  @UpdateDateColumn({ name: "updated_at", type: "timestamp", comment: "Fecha de actualización del registro"})
   updateAt: Date;
 
-  @DeleteDateColumn({ name: "deleted_at", type: "timestamp" })
+  @DeleteDateColumn({ name: "deleted_at", type: "timestamp", comment: "Fecha de eliminación del registro"})
   deleteAt: Date;
 }
