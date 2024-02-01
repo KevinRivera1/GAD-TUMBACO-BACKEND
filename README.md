@@ -31,7 +31,8 @@
 1. **PostgreSQL**: Tener instalado **PostgreSQL**
 2. **Base de Datos**: Crear una base de datos con el --> "Nombre" especifico en los --> **".develop.env"** => **"NAME_DB"**
 
-[info]: # (Las tablas de base de datos se crean automaticamente al levantar el servidor de Nestjs)
+> [!info]
+>(Las tablas de base de datos se crean automaticamente al levantar el servidor de Nestjs)
 
 
 ## Instrucciones de Instalación
