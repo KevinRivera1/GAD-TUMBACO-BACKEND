@@ -26,29 +26,48 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Requisitos
+
+1. **PostgreSQL**: Tener instalado **PostgreSQL**
+2. **Base de Datos**: Crear una base de datos con el --> "Nombre" especifico en los --> **".develop.env"** => **"NAME_DB"**
+
+[info]: # (Las tablas de base de datos se crean automaticamente al levantar el servidor de Nestjs)
+
+
+## Instrucciones de Instalación
+
+Sigue los pasos a continuación para iniciar la instalación de dependencias y levantar el servidor de Nest.js:
+👇👇 Iniciar con el proceso de instalacion de dependencias y levantar el servidor de Nestjs 👇👇
+
+## Instalación de Dependencias
 
 ```bash
+### Paso: 1 --> Instalar dependencias del proyecto
 $ npm install
 ```
 
-## GENERAR RECURSOS DE NESTJS
+## Levantar el servidor de Nestjs en modo desarrollo
+
+```bash
+# Paso: 2 --> Levantar el servidor de Nestjs en modo desarrollo
+$ npm run start:dev
+```
+
+## Levantar el servidor de Nestjs en modo producción
+
+```bash
+# Levantar el servidor de Nestjs en modo producción
+$ npm run start:prod
+```
+
+
+## Generar un recurso CRUD en Nestjs
 
 ```bash
 # Generar un recurso CRUD
 $ nest g res Bienes --no-spec
 ```
 
-## Running the app
-
-```bash
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
 
 ## Test
 
